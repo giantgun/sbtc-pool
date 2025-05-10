@@ -43,7 +43,7 @@
       (default-to u0 (get-stacks-block-info? time (- stacks-block-height u2)))
       (default-to u0 (get-stacks-block-info?  time (- stacks-block-height u1002)))
     ) 
-    u1000
+    u100
   )
 )
 
@@ -293,7 +293,7 @@
     )
     (asserts! (> lender-balance u0) err-not-a-lender)
     (print {withdrawal-limit: lender-pool-balance})
-    (ok true)
+    (ok {withdrawal-limit: lender-pool-balance})
   )
 )
 

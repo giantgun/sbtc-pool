@@ -62,16 +62,16 @@ plan:
         - emulated-contract-publish:
             contract-name: sbtc-registry
             emulated-sender: ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT
-            path: ".\\.cache/requirements/ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-registry.clar"
+            path: ".\\.cache\\requirements\\ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-registry.clar"
             clarity-version: 3
         - emulated-contract-publish:
             contract-name: sbtc-token
             emulated-sender: ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT
-            path: ".\\.cache/requirements/ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token.clar"
+            path: ".\\.cache\\requirements\\ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token.clar"
             clarity-version: 3
         - emulated-contract-publish:
             contract-name: sbtc-pool
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/sbtc-pool.clar
+            path: "contracts\\sbtc-pool.clar"
             clarity-version: 3
       epoch: "3.1"
