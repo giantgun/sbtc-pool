@@ -50,12 +50,12 @@
 ;; Calcultate address average balance for the last 3 months
 (define-private (get-average-balance (who principal))
   (let (
-      (stacks-header-hash-1 (unwrap-panic (get-stacks-block-info? header-hash (- stacks-block-height (convert-days-to-blocks u31)))))
-      (stacks-header-hash-2 (unwrap-panic (get-stacks-block-info? header-hash (- stacks-block-height (convert-days-to-blocks u61)))))
-      (stacks-header-hash-3 (unwrap-panic (get-stacks-block-info? header-hash (- stacks-block-height (convert-days-to-blocks u91)))))
+      (stacks-header-hash-1 (unwrap-panic (get-stacks-block-info? header-hash (- stacks-block-height (convert-days-to-blocks u1)))))
+      (stacks-header-hash-2 (unwrap-panic (get-stacks-block-info? header-hash (- stacks-block-height (convert-days-to-blocks u2)))))
+      (stacks-header-hash-3 (unwrap-panic (get-stacks-block-info? header-hash (- stacks-block-height (convert-days-to-blocks u3)))))
 
     )
-    (/ 
+    (/
       (+ 
         (at-block stacks-header-hash-1 (unwrap-panic (contract-call? 'ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token get-balance who)))
         (at-block stacks-header-hash-2 (unwrap-panic (contract-call? 'ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token get-balance who)))
