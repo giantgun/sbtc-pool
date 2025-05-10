@@ -38,13 +38,7 @@
 
 ;; Determines time per block in seconds
 (define-read-only (time-per-block)
-  (/
-    (-
-      (default-to u0 (get-stacks-block-info? time (- stacks-block-height u2)))
-      (default-to u0 (get-stacks-block-info?  time (- stacks-block-height u1002)))
-    ) 
-    u100
-  )
+  (* u10 u60)
 )
 
 ;; ---------------------Borrower-Helper-Functions---------------------
