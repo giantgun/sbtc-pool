@@ -6,6 +6,7 @@
 (define-constant err-not-eligible (err u104))
 (define-constant err-funds-not-available-now (err u105))
 (define-constant err-funds-locked (err u106))
+(define-constant err-unable-to-get-block (err 107))
 
 ;; Tier max
 (define-constant tier-0-limit u10000) ;; 0.0001 sbtc
@@ -50,16 +51,16 @@
 ;; Calcultate address average balance for the last 3 months
 (define-private (get-average-balance (who principal))
   (let (
-      (stacks-header-hash-1 (unwrap-panic (get-stacks-block-info? header-hash (- stacks-block-height (convert-days-to-blocks u1)))))
-      (stacks-header-hash-2 (unwrap-panic (get-stacks-block-info? header-hash (- stacks-block-height (convert-days-to-blocks u2)))))
-      (stacks-header-hash-3 (unwrap-panic (get-stacks-block-info? header-hash (- stacks-block-height (convert-days-to-blocks u3)))))
+      (stacks-id-header-hash-1 (unwrap! (get-stacks-block-info? id-header-hash (- stacks-block-height (convert-days-to-blocks u1))) u0))
+      (stacks-id-header-hash-2 (unwrap! (get-stacks-block-info? id-header-hash (- stacks-block-height (convert-days-to-blocks u31))) u0))
+      (stacks-id-header-hash-3 (unwrap! (get-stacks-block-info? id-header-hash (- stacks-block-height (convert-days-to-blocks u61))) u0))
 
     )
     (/
       (+ 
-        (at-block stacks-header-hash-1 (unwrap-panic (contract-call? 'ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token get-balance who)))
-        (at-block stacks-header-hash-2 (unwrap-panic (contract-call? 'ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token get-balance who)))
-        (at-block stacks-header-hash-3 (unwrap-panic (contract-call? 'ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token get-balance who)))
+        (at-block stacks-id-header-hash-1 (unwrap! (contract-call? 'ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token get-balance who) u0))
+        (at-block stacks-id-header-hash-2 (unwrap! (contract-call? 'ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token get-balance who) u0))
+        (at-block stacks-id-header-hash-3 (unwrap! (contract-call? 'ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token get-balance who) u0))
       ) 
       u3
     )
