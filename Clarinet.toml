@@ -1,0 +1,25 @@
+[project]
+name = 'sbtc-pool'
+description = ''
+authors = []
+telemetry = true
+cache_dir = '.\.cache'
+
+[[project.requirements]]
+contract_id = 'ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token'
+[contracts.sbtc-pool]
+path = 'contracts/sbtc-pool.clar'
+clarity_version = 3
+epoch = 3.1
+[repl.analysis]
+passes = ['check_checker']
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false
+
+[repl.remote_data]
+enabled = false
+api_url = 'https://api.hiro.so'
