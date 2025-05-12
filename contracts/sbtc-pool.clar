@@ -323,7 +323,7 @@
       {
         event: "loan_grant_sucessful", 
         user: tx-sender, 
-        amount_to_repay: (repayment_amount_due tx-sender), 
+        amount_to_repay: (repayment-amount-due tx-sender), 
         amount: amount, 
         due_block: (+ stacks-block-height loan_duration_in_blocks), 
         interest_rate: (var-get interest_rate_in_percent), 
@@ -341,7 +341,7 @@
       (due_block (get due_block loan_data))
       (interest_rate (get interest_rate loan_data))
       (issued_block (get issued_block loan_data))
-      (repayment_amount (repayment_amount_due who))
+      (repayment_amount (repayment-amount-due who))
     )
     (asserts! (> (get amount loan_data) u0) err_not_eligible)
     (try! (contract-call? 'ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token transfer repayment_amount tx-sender (as-contract tx-sender) none))
