@@ -28,7 +28,7 @@
   total_loans: uint,
   on_time_loans: uint,
   late_loans: uint,
-  })
+})
 
 (define-private (is-admin)
   (begin
@@ -385,19 +385,19 @@
       credit_score: (+ (repayment-score total_loans on_time_loans late_loans) (activity-score average_balance)),
       credit_score_limit: credit_score_limit,
       average_balance: average_balance,
-      loan-limit: u0
+      loan_limit: u0
     }))
     (asserts! (< average_balance credit_score_limit) (ok {
       credit_score: (+ (repayment-score total_loans on_time_loans late_loans) (activity-score average_balance)),
       credit_score_limit: credit_score_limit,
       average_balance: average_balance,
-      loan-limit: credit_score_limit
+      loan_limit: credit_score_limit
     }))
     (ok {
       credit_score: (+ (repayment-score total_loans on_time_loans late_loans) (activity-score average_balance)),
       credit_score_limit: credit_score_limit,
       average_balance: average_balance,
-      loan-limit: average_balance
+      loan_limit: average_balance
     })
   )
 )
@@ -456,18 +456,18 @@
     (if (> total_loans (+ on_time_loans late_loans))
       (ok {
         message: "address has an unpaid loan",
-        loan-limit: u0,
+        loan_limit: u0,
         interest_rate: (var-get interest_rate_in_percent)
       })
       (if (>= credit_score_limit average_balance)
         (ok {
           message: "eligible for loan",
-          loan-limit: average_balance,
+          loan_limit: average_balance,
           interest_rate: (var-get interest_rate_in_percent)
         })
         (ok {
           message: "eligible for loan",
-          loan-limit: credit_score_limit,
+          loan_limit: credit_score_limit,
           interest_rate: (var-get interest_rate_in_percent)
         })
       )
