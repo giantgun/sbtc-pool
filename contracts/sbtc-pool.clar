@@ -457,18 +457,21 @@
       (ok {
         message: "address has an unpaid loan",
         loan_limit: u0,
-        interest_rate: (var-get interest_rate_in_percent)
+        interest_rate: (var-get interest_rate_in_percent),
+        duration: (var-get loan_duration_in_days),
       })
       (if (>= credit_score_limit average_balance)
         (ok {
           message: "eligible for loan",
           loan_limit: average_balance,
-          interest_rate: (var-get interest_rate_in_percent)
+          interest_rate: (var-get interest_rate_in_percent),
+          duration: (var-get loan_duration_in_days),
         })
         (ok {
           message: "eligible for loan",
           loan_limit: credit_score_limit,
-          interest_rate: (var-get interest_rate_in_percent)
+          interest_rate: (var-get interest_rate_in_percent),
+          duration: (var-get loan_duration_in_days),
         })
       )
     )
