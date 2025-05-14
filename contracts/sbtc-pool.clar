@@ -22,7 +22,7 @@
 (define-data-var admin principal tx-sender)
 (define-data-var interest_rate_in_percent uint u15)
 (define-data-var loan_duration_in_days uint u14)
-(define-data-var lock_duration_in_days uint u30)
+(define-data-var lock_duration_in_days uint u0)
 (define-map active_loans principal { amount: uint, due_block: uint, interest_rate: uint, issued_block: uint, }) 
 (define-map account_data_map principal {
   total_loans: uint,
@@ -426,11 +426,11 @@
   )
 )
 
-(define-public (set-interest-rate-in-percent (duration uint))
+(define-public (set-interest-rate-in-percent (rate uint))
   (begin
     (asserts! (is-admin) err_not_admin)
-    (asserts! (> duration u0) err_input_value_too_small)
-    (ok (var-set lock_duration_in_days duration))
+    (asserts! (> rate u0) err_input_value_too_small)
+    (ok (var-set interest_rate_in_percent rate))
   )
 )
 
@@ -480,6 +480,7 @@
 
 (define-read-only (get-lending-pool-info)
   (ok {
+    lock_duration_in_days: (var-get lock_duration_in_days),
     pool_size: (var-get total_lending_pool),
     contract_balance: (unwrap-panic (contract-call? 'ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token get-balance (as-contract tx-sender)))
   })
