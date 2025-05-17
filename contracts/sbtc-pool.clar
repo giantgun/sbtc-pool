@@ -511,6 +511,13 @@
 (define-read-only (get-borrower-info (who principal))
   (ok {
     active_loan: (map-get? active_loans who),
-    account_data: (map-get? account_data_map who)
+    account_data: (map-get? account_data_map who),
+    repayment_amount_due: (repayment-amount-due who),
+  })
+)
+
+(define-read-only (get-block-height (who principal))
+  (ok {
+    stacks_block_height: stacks-block-height,
   })
 )
