@@ -245,9 +245,7 @@ Returns total loan history for a user.
 
 ---
 
-## Admin Functions - sBTC Lending Protocol
-
-This document outlines all administrative functions in the smart contract, their access control, and what they do. Only the contract admin can call these functions, as protected by the `(is-admin)` private function.
+## 📜 Admin Functions
 
 ### Admin Verification
 
