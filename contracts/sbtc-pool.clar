@@ -221,7 +221,13 @@
         (contract_balance (unwrap-panic (contract-call? 'ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token get-balance (as-contract tx-sender))))
         (lender_pool_balance 
           (if (> lender_balance u0)
-            (/ (* lender_balance contract_balance) (var-get total_lending_pool))
+            (/ 
+              (* lender_balance contract_balance) 
+              (if (> (var-get total_lending_pool) u0)
+                (var-get total_lending_pool)
+                u1
+              )
+            )
             u0
           )
         ) ;; calculate the lenders' percentage of the pool
@@ -281,7 +287,13 @@
       (contract_balance (unwrap-panic (contract-call? 'ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT.sbtc-token get-balance (as-contract tx-sender))))
       (lender_pool_balance 
         (if (> lender_balance u0)
-          (/ (* lender_balance contract_balance) (var-get total_lending_pool))
+          (/ 
+            (* lender_balance contract_balance) 
+            (if (> (var-get total_lending_pool) u0)
+              (var-get total_lending_pool)
+              u1
+            )
+          )
           u0
         )
       )
