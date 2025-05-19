@@ -288,12 +288,12 @@ There are no public admin-only functions explicitly named in the contract for mo
 
 ---
 
-## 🧱 Built With
+## Built With
 
 - **Clarity** – Smart contract language for Stacks  
 - **sBTC** – Bitcoin-backed asset on Stacks  
 
-## 🧪 Testing
+## Testing
 
 This contract is designed for use on the Stacks testnet/mainnet. Use the **Stacks CLI** and **Clarity REPL** for deployment and testing.
 
