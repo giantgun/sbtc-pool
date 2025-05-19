@@ -297,8 +297,4 @@ There are no public admin-only functions explicitly named in the contract for mo
 
 This contract is designed for use on the Stacks testnet/mainnet. Use the **Stacks CLI** and **Clarity REPL** for deployment and testing.
 
-## 👥 Authors
-
-Built by [CulturedBadBoy]. Contributions and feedback welcome!
-
 
