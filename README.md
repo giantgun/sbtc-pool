@@ -317,4 +317,19 @@ If you want admins to update the configurable variables, you might consider impl
   )
 )
 
+---
+
+## 🧱 Built With
+
+- **Clarity** – Smart contract language for Stacks  
+- **sBTC** – Bitcoin-backed asset on Stacks  
+
+## 🧪 Testing
+
+This contract is designed for use on the Stacks testnet/mainnet. Use the **Stacks CLI** and **Clarity REPL** for deployment and testing.
+
+## 👥 Authors
+
+Built by [CulturedBadBoy]. Contributions and feedback welcome!
+
 
