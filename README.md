@@ -288,37 +288,6 @@ There are no public admin-only functions explicitly named in the contract for mo
 
 ---
 
-### Potential Admin Utility Function Recommendations (Missing in Code)
-
-If you want admins to update the configurable variables, you might consider implementing the following functions:
-
-```clojure
-(define-public (set-interest-rate (new-rate uint))
-  (begin
-    (asserts! (is-admin) err_not_admin)
-    (var-set interest_rate_in_percent new-rate)
-    (ok true)
-  )
-)
-
-(define-public (set-loan-duration (days uint))
-  (begin
-    (asserts! (is-admin) err_not_admin)
-    (var-set loan_duration_in_days days)
-    (ok true)
-  )
-)
-
-(define-public (set-lock-duration (days uint))
-  (begin
-    (asserts! (is-admin) err_not_admin)
-    (var-set lock_duration_in_days days)
-    (ok true)
-  )
-)
-
----
-
 ## 🧱 Built With
 
 - **Clarity** – Smart contract language for Stacks  
