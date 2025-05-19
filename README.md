@@ -93,15 +93,12 @@ Total credit score = Activity Score + Repayment Score
 ---
 
 
-# 📄 Smart Contract Public Functions
-
-This document describes the public functions available in the smart contract.
-
+### Public Functions
 ---
 
-## 💸 Lender Functions
+### 💸 Lender Functions
 
-### `lend (amount uint) -> (response bool)`
+#### `lend (amount uint) -> (response bool)`
 Allows a user to lend sBTC to the lending pool. Funds are locked until the specified unlock block.
 
 - **Parameters**: 
@@ -111,7 +108,7 @@ Allows a user to lend sBTC to the lending pool. Funds are locked until the speci
 
 ---
 
-### `withdraw (amount uint) -> (response bool)`
+#### `withdraw (amount uint) -> (response bool)`
 Allows a lender to withdraw their share of the lending pool after the lock period.
 
 - **Parameters**: 
@@ -121,7 +118,7 @@ Allows a lender to withdraw their share of the lending pool after the lock perio
 
 ---
 
-### `get-withdrawal-limit (lender principal) -> (response {withdrawal_limit: uint})`
+#### `get-withdrawal-limit (lender principal) -> (response {withdrawal_limit: uint})`
 Returns the maximum amount the specified lender can currently withdraw.
 
 - **Parameters**: 
@@ -130,9 +127,9 @@ Returns the maximum amount the specified lender can currently withdraw.
 
 ---
 
-## 🧾 Borrower Functions
+### 🧾 Borrower Functions
 
-### `apply-for-loan (amount uint) -> (response bool)`
+###v `apply-for-loan (amount uint) -> (response bool)`
 Allows a borrower to apply for a loan based on their creditworthiness.
 
 - **Parameters**: 
@@ -145,7 +142,7 @@ Allows a borrower to apply for a loan based on their creditworthiness.
 
 ---
 
-### `repay-loan (who principal) -> (response bool)`
+#### `repay-loan (who principal) -> (response bool)`
 Allows a borrower to repay their outstanding loan.
 
 - **Parameters**: 
@@ -155,7 +152,7 @@ Allows a borrower to repay their outstanding loan.
 
 ---
 
-### `repayment-amount-due (who principal) -> (response uint)`
+#### `repayment-amount-due (who principal) -> (response uint)`
 Returns the total repayment amount (loan + interest) for a borrower.
 
 - **Parameters**: 
@@ -164,7 +161,7 @@ Returns the total repayment amount (loan + interest) for a borrower.
 
 ---
 
-### `get-loan-limit-info (who principal) -> (response uint)`
+#### `get-loan-limit-info (who principal) -> (response uint)`
 Returns the maximum loan amount available to a borrower based on their credit score.
 
 - **Parameters**: 
@@ -173,9 +170,9 @@ Returns the maximum loan amount available to a borrower based on their credit sc
 
 ---
 
-## 🔍 Read-Only Functions
+### 🔍 Read-Only Functions
 
-### `get-loan-eligibility (principal)`
+#### `get-loan-eligibility (principal)`
 Returns whether the given user is eligible for a loan and the calculated credit score.
 
 **Returns:**  
@@ -183,7 +180,7 @@ Returns whether the given user is eligible for a loan and the calculated credit 
 
 ---
 
-### `get-loan-limit (score uint)`
+#### `get-loan-limit (score uint)`
 Calculates the maximum loan amount based on a given credit score.
 
 **Returns:**  
@@ -191,7 +188,7 @@ Calculates the maximum loan amount based on a given credit score.
 
 ---
 
-### `get-activity-score (principal)`
+#### `get-activity-score (principal)`
 Computes the user's activity score based on their average account balance over the past 3 months.
 
 **Returns:**  
@@ -199,7 +196,7 @@ Computes the user's activity score based on their average account balance over t
 
 ---
 
-### `get-repayment-score (principal)`
+#### `get-repayment-score (principal)`
 Calculates repayment score based on the number of loans and how many were repaid on time.
 
 **Returns:**  
@@ -207,7 +204,7 @@ Calculates repayment score based on the number of loans and how many were repaid
 
 ---
 
-### `get-credit-score (principal)`
+#### `get-credit-score (principal)`
 Adds up the activity score and repayment score to determine the full credit score.
 
 **Returns:**  
@@ -215,7 +212,7 @@ Adds up the activity score and repayment score to determine the full credit scor
 
 ---
 
-### `get-withdrawal-limit (principal)`
+#### `get-withdrawal-limit (principal)`
 Calculates the maximum amount the user can withdraw from the lending pool based on their locked amount and the current available pool.
 
 **Returns:**  
@@ -223,7 +220,7 @@ Calculates the maximum amount the user can withdraw from the lending pool based 
 
 ---
 
-### `get-lender-info (principal)`
+#### `get-lender-info (principal)`
 Returns the lender's locked balance and lock period information.
 
 **Returns:**  
@@ -231,7 +228,7 @@ Returns the lender's locked balance and lock period information.
 
 ---
 
-### `get-loan-info (principal)`
+#### `get-loan-info (principal)`
 Fetches details of the active loan for a user, if any.
 
 **Returns:**  
@@ -239,7 +236,7 @@ Fetches details of the active loan for a user, if any.
 
 ---
 
-### `get-account-data (principal)`
+#### `get-account-data (principal)`
 Returns total loan history for a user.
 
 **Returns:**  
@@ -248,12 +245,3 @@ Returns total loan history for a user.
 
 ---
 
-## 🗺 Data Structures
-
-### `lender_info` (map)
-```clojure
-principal => {
-  balance: uint,
-  locked_block: uint,
-  unlock_block: uint
-}
