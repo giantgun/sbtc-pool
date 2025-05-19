@@ -8,28 +8,28 @@ This Clarity smart contract implements a decentralized lending and borrowing pro
 
 ---
 
-## 📦 Features
+## Features
 
-### ✅ Lending
+### Lending
 - Lenders deposit sBTC into the pool.
 - Funds are locked for a specified duration.
 - Withdrawals are proportionate to the lender’s share in the pool.
 
-### 💰 Borrowing
+### Borrowing
 - Undercollateralized loans.
 - Credit scores calculated from:
   - Account average balance (past 3 months).
   - On-time vs late repayment history.
 - Dynamic loan limits based on score tiers.
 
-### 🔐 Admin Functions
+### Admin Functions
 - Set interest rates
 - Set lock durations
 - Set loan durations
 
 ---
 
-## ⚙️ Constants
+## Constants
 
 ### Errors
 | Name | Description |
@@ -55,7 +55,7 @@ This Clarity smart contract implements a decentralized lending and borrowing pro
 
 ---
 
-## 🧠 Credit Scoring System
+## Credit Scoring System
 
 ### Activity Score (based on average balance)
 | Balance | Score |
@@ -96,7 +96,7 @@ Total credit score = Activity Score + Repayment Score
 ### Public Functions
 ---
 
-### 💸 Lender Functions
+### Lender Functions
 
 #### `lend (amount uint) -> (response bool)`
 Allows a user to lend sBTC to the lending pool. Funds are locked until the specified unlock block.
@@ -245,7 +245,7 @@ Returns total loan history for a user.
 
 ---
 
-## 📜 Admin Functions
+## Admin Functions
 
 ### Admin Verification
 
