@@ -245,3 +245,78 @@ Returns total loan history for a user.
 
 ---
 
+## Admin Functions - sBTC Lending Protocol
+
+This document outlines all administrative functions in the smart contract, their access control, and what they do. Only the contract admin can call these functions, as protected by the `(is-admin)` private function.
+
+### Admin Verification
+
+#### `(define-private (is-admin) ...)`
+
+- **Description:** Checks whether the `contract-caller` is the current admin.
+- **Access:** Private
+- **Logic:** Compares `contract-caller` to the current admin stored in `(var-get admin)`. Fails with `err_not_admin` if not equal.
+
+---
+
+### Admin-Controlled Data Variables
+
+The following `define-data-var`s are set and controlled by the admin:
+
+- `admin`: Stores the principal of the current admin (`tx-sender` during deployment).
+- `interest_rate_in_percent`: Interest rate used for loan repayments. Default: `u15` (15%).
+- `loan_duration_in_days`: Duration of issued loans. Default: `u14` (14 days).
+- `lock_duration_in_days`: Lock duration for lender funds. Default: `u0`.
+
+These values are used in borrower eligibility checks, loan issuance, and lender fund lock calculation.
+
+---
+
+### Functions Admin Can Control or Modify
+
+There are no public admin-only functions explicitly named in the contract for modifying the following variables, but based on the structure, any future function that modifies these would require `(is-admin)` checks:
+
+#### 1. `interest_rate_in_percent`
+- **Role:** Sets the interest rate on issued loans.
+- **Usage:** Used in `(apply-for-loan)` and `(repayment-amount-due)` to calculate total repayment amount.
+
+#### 2. `loan_duration_in_days`
+- **Role:** Determines how long a borrower has to repay a loan.
+- **Usage:** Used in `(apply-for-loan)` to calculate the loan's due block.
+
+#### 3. `lock_duration_in_days`
+- **Role:** Defines how long lender funds are locked before they can be withdrawn.
+- **Usage:** Used in `(lend)` and `(withdraw)` to calculate `unlock_block`.
+
+---
+
+### Potential Admin Utility Function Recommendations (Missing in Code)
+
+If you want admins to update the configurable variables, you might consider implementing the following functions:
+
+```clojure
+(define-public (set-interest-rate (new-rate uint))
+  (begin
+    (asserts! (is-admin) err_not_admin)
+    (var-set interest_rate_in_percent new-rate)
+    (ok true)
+  )
+)
+
+(define-public (set-loan-duration (days uint))
+  (begin
+    (asserts! (is-admin) err_not_admin)
+    (var-set loan_duration_in_days days)
+    (ok true)
+  )
+)
+
+(define-public (set-lock-duration (days uint))
+  (begin
+    (asserts! (is-admin) err_not_admin)
+    (var-set lock_duration_in_days days)
+    (ok true)
+  )
+)
+
+
