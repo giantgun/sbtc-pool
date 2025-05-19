@@ -71,10 +71,12 @@ This Clarity smart contract implements a decentralized lending and borrowing pro
 ### Repayment Score
 Calculated as:
 
+```clojure
 if total_loans < 5:
 score = (on_time_loans * 700) / (total_loans + 5)
 else:
 score = (on_time_loans * 700) / total_loans
+```
 
 ### Loan Limit (based on total credit score)
 Total credit score = Activity Score + Repayment Score
@@ -90,33 +92,159 @@ Total credit score = Activity Score + Repayment Score
 
 ---
 
-## 📤 Public Functions
 
-### `lend(amount)`
-- Deposits sBTC into the pool.
-- Locks lender’s funds.
-- Updates lender info.
+# 📄 Smart Contract Public Functions
 
-### `withdraw(amount)`
-- Withdraws funds if unlock block has passed.
-- Amount is based on lender’s share of pool.
+This document describes the public functions available in the smart contract.
 
-### `apply-for-loan(amount)`
-- Checks eligibility.
-- Calculates credit score.
-- Disburses loan if eligible.
+---
 
-### `repay-loan(who)`
-- Transfers repayment (including interest).
-- Updates repayment history.
-- Deletes loan record.
+## 💸 Lender Functions
+
+### `lend (amount uint) -> (response bool)`
+Allows a user to lend sBTC to the lending pool. Funds are locked until the specified unlock block.
+
+- **Parameters**: 
+  - `amount`: Amount of sBTC to lend (must be ≥ `u10000000`).
+- **Emits**: `lend_successful` event.
+- **Returns**: `true` if lending is successful.
+
+---
+
+### `withdraw (amount uint) -> (response bool)`
+Allows a lender to withdraw their share of the lending pool after the lock period.
+
+- **Parameters**: 
+  - `amount`: Amount to withdraw (must not exceed their pool share and must be unlocked).
+- **Emits**: `withdrawal_successful` event.
+- **Returns**: `true` if withdrawal is successful.
+
+---
+
+### `get-withdrawal-limit (lender principal) -> (response {withdrawal_limit: uint})`
+Returns the maximum amount the specified lender can currently withdraw.
+
+- **Parameters**: 
+  - `lender`: The address of the lender.
+- **Returns**: The withdrawal limit for the lender.
+
+---
+
+## 🧾 Borrower Functions
+
+### `apply-for-loan (amount uint) -> (response bool)`
+Allows a borrower to apply for a loan based on their creditworthiness.
+
+- **Parameters**: 
+  - `amount`: Amount to borrow.
+- **Conditions**:
+  - Must be eligible based on average balance and repayment history.
+  - Lending pool must have enough funds.
+- **Emits**: `loan_grant_successful` event.
+- **Returns**: `true` if loan is granted.
+
+---
+
+### `repay-loan (who principal) -> (response bool)`
+Allows a borrower to repay their outstanding loan.
+
+- **Parameters**: 
+  - `who`: The borrower’s principal (usually `tx-sender`).
+- **Emits**: `loan_repaid_successfully` event.
+- **Returns**: `true` if repayment is successful.
+
+---
+
+### `repayment-amount-due (who principal) -> (response uint)`
+Returns the total repayment amount (loan + interest) for a borrower.
+
+- **Parameters**: 
+  - `who`: The borrower’s principal.
+- **Returns**: Amount due including interest.
+
+---
+
+### `get-loan-limit-info (who principal) -> (response uint)`
+Returns the maximum loan amount available to a borrower based on their credit score.
+
+- **Parameters**: 
+  - `who`: The borrower's principal.
+- **Returns**: The loan limit the borrower qualifies for.
 
 ---
 
 ## 🔍 Read-Only Functions
 
-### `get-withdrawal-limit(lender)`
-- Returns max amount lender can withdraw based on pool share and available balance.
+### `get-loan-eligibility (principal)`
+Returns whether the given user is eligible for a loan and the calculated credit score.
+
+**Returns:**  
+`(tuple (eligible bool) (score uint) (max-loan uint))`
+
+---
+
+### `get-loan-limit (score uint)`
+Calculates the maximum loan amount based on a given credit score.
+
+**Returns:**  
+`uint` — The maximum allowable loan amount.
+
+---
+
+### `get-activity-score (principal)`
+Computes the user's activity score based on their average account balance over the past 3 months.
+
+**Returns:**  
+`uint` — Activity score.
+
+---
+
+### `get-repayment-score (principal)`
+Calculates repayment score based on the number of loans and how many were repaid on time.
+
+**Returns:**  
+`uint` — Repayment score.
+
+---
+
+### `get-credit-score (principal)`
+Adds up the activity score and repayment score to determine the full credit score.
+
+**Returns:**  
+`uint` — Total credit score.
+
+---
+
+### `get-withdrawal-limit (principal)`
+Calculates the maximum amount the user can withdraw from the lending pool based on their locked amount and the current available pool.
+
+**Returns:**  
+`uint` — Withdrawable amount.
+
+---
+
+### `get-lender-info (principal)`
+Returns the lender's locked balance and lock period information.
+
+**Returns:**  
+`(optional (tuple (balance uint) (locked-block uint) (unlock-block uint)))`
+
+---
+
+### `get-loan-info (principal)`
+Fetches details of the active loan for a user, if any.
+
+**Returns:**  
+`(optional (tuple (amount uint) (due-block uint) (interest-rate uint) (issued-block uint)))`
+
+---
+
+### `get-account-data (principal)`
+Returns total loan history for a user.
+
+**Returns:**  
+`(optional (tuple (total-loans uint) (on-time-loans uint) (late-loans uint)))`
+
 
 ---
 
