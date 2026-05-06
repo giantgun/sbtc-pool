@@ -1,3 +1,18 @@
+# 🏆 Clarity Lending Protocol Contract  
+### Winner — **Best Use of sBTC** @ Bitcoin 2025 Hackathon  
+
+🎥 **Demo Video:**  
+<br/>
+<br/>
+<div align="center">
+  <a href="https://youtu.be/r4yYqN6OevA">
+    <img src="https://img.youtube.com/vi/r4yYqN6OevA/maxresdefault.jpg" alt="BareBtc Demo" width="90%" />
+  </a>
+</div>
+<br/>
+<br/>
+---
+
 # 📜 Clarity Lending Protocol Contract
 
 This Clarity smart contract implements a decentralized lending and borrowing protocol on the Stacks blockchain using sBTC. It features:
