@@ -1,5 +1,5 @@
 # 🏆 Clarity Lending Protocol Contract  
-### Winner — **Best Use of sBTC** @ Bitcoin 2025 Hackathon  
+### Winner of **Best Use of sBTC** @ Bitcoin 2025 Hackathon  
 
 🎥 **Demo Video:**  
 <br/>
@@ -11,6 +11,7 @@
 </div>
 <br/>
 <br/>
+
 ---
 
 # 📜 Clarity Lending Protocol Contract
